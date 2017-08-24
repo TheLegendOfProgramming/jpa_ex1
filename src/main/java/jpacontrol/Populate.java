@@ -24,6 +24,8 @@ public class Populate
         c.setFirstName("FN");
         c.setLastName("LN");
         c.setType(Customer.CustomerType.GOLD);
+        c.addPhone("52766657","My phone nr");
+        c.addPhone("34221152","Random Phone Number");
         em.persist(c);
 
         em.getTransaction().commit();

@@ -2,7 +2,9 @@ package entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.*;
 
 @Entity
@@ -27,6 +29,11 @@ public class Customer implements Serializable {
     @ElementCollection()
     private List<String> hobbies = new ArrayList();
 
+    @ElementCollection(fetch = FetchType.LAZY)
+    @MapKeyColumn(name = "PHONE")
+    @Column(name="Description")
+    private Map<String,String> phones = new HashMap();
+
     public Long getId() {
         return id;
     }
@@ -47,6 +54,10 @@ public class Customer implements Serializable {
         return hobbies;
     }
 
+    public String getPhoneDescription(String phoneNo) {
+        return phones.get(phoneNo);
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -61,5 +72,9 @@ public class Customer implements Serializable {
 
     public void addHobby(String hobby) {
         this.hobbies.add(hobby);
+    }
+
+    public void addPhone(String phoneNo, String description) {
+        this.phones.put(phoneNo,description);
     }
 }
